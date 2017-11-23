@@ -598,37 +598,37 @@ def logSystemProperties() {
 def postToInfluxDB(data) {
     logger("postToInfluxDB(): Posting data to InfluxDB: Host: ${state.databaseHost}, Port: ${state.databasePort}, Database: ${state.databaseName}, Data: [${data}]","debug")
     
-    try {
-        def hubAction = new physicalgraph.device.HubAction(
-        	[
-                method: "POST",
-                path: state.path,
-                body: data,
-                headers: state.headers
-            ],
-            null,
-            [ callback: handleInfluxResponse ]
-        )
+    //try {
+    //    def hubAction = new physicalgraph.device.HubAction(
+    //    	[
+    //            method: "POST",
+    //            path: state.path,
+    //            body: data,
+    //            headers: state.headers
+    //        ],
+    //        null,
+    //        [ callback: handleInfluxResponse ]
+    //    )
 		
-        sendHubCommand(hubAction)
-    }
-    catch (Exception e) {
-		logger("postToInfluxDB(): Exception ${e} on ${hubAction}","error")
-    }
+    //    sendHubCommand(hubAction)
+    //}
+    //catch (Exception e) {
+    //		logger("postToInfluxDB(): Exception ${e} on ${hubAction}","error")
+    //}
 
     // For reference, code that could be used for WAN hosts:
-    // def url = "http://${state.databaseHost}:${state.databasePort}/write?db=${state.databaseName}" 
-    //    try {
-    //      httpPost(url, data) { response ->
-    //          if (response.status != 999 ) {
-    //              log.debug "Response Status: ${response.status}"
-    //              log.debug "Response data: ${response.data}"
-    //              log.debug "Response contentType: ${response.contentType}"
-    //            }
-    //      }
-    //  } catch (e) {	
-    //      logger("postToInfluxDB(): Something went wrong when posting: ${e}","error")
-    //  }
+      def url = "http://${state.databaseHost}:${state.databasePort}/write?db=${state.databaseName}" 
+        try {
+          httpPost(url, data) { response ->
+              if (response.status != 999 ) {
+                  log.debug "Response Status: ${response.status}"
+                  log.debug "Response data: ${response.data}"
+                  log.debug "Response contentType: ${response.contentType}"
+                }
+          }
+      } catch (e) {	
+          logger("postToInfluxDB(): Something went wrong when posting: ${e}","error")
+      }
 }
 
 /**
