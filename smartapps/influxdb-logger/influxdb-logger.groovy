@@ -31,7 +31,7 @@
  *****************************************************************************************************************/
 definition(
     name: "InfluxDB Logger",
-    namespace: "codersaur",
+    namespace: "ruhlmcu",
     author: "David Lomas (codersaur)",
     description: "Log SmartThings device states to InfluxDB",
     category: "My Apps",
